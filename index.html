@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eliza</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <article>
+      <h1>
+        <pre>
+███████ ██      ██ ███████  █████  
+██      ██      ██    ███  ██   ██ 
+█████   ██      ██   ███   ███████ 
+██      ██      ██  ███    ██   ██ 
+███████ ███████ ██ ███████ ██   ██ </pre
+        >
+        <hr />
+      </h1>
+
+      <div class="message" id="message-container">
+        <!-- <div class="system-message">
+          <p><span>Eliza: </span>Cześć, jak mogę ci pomóc?</p>
+        </div>
+        <div class="user-message">
+          <p>
+            <span>> Ty: </span>cześć Lorem ipsum dolor sit, amet consectetur
+            adipisicing elit. Nihil iste nostrum nemo iusto harum adipisci, quos
+            officiis suscipit commodi itaque quas laborum aspernatur quam
+            recusandae, deserunt minima nam vitae! Quas.
+          </p>
+        </div> -->
+      </div>
+      <input type="text" id="message" placeholder=">" autocomplete="off" />
+      <br />
+      <div class="button-container">
+        <button id="print-conversation">Drukuj konwersację</button>
+        <button id="reset-conversation">Resetuj wiadomości</button>
+      </div>
+      <footer>Autor: Krystian Osiński</footer>
+    </article>
+    <script src="eMainPage.js"></script>
+    <script src="eTriggers.js"></script>
+    <script src="eResponse.js"></script>
+  </body>
+</html>

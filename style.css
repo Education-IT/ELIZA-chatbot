@@ -1,0 +1,139 @@
+html {
+    background-color: #333;
+    font-family: consolas;
+}
+
+h1{
+    text-align: center;
+    color: #ffffff;
+    font-size: large;
+}
+
+hr{
+    border: 1px solid #444;
+    margin-bottom: 20px;
+}
+
+article {
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+pre {
+    background-color: #333;
+    color: rgb(31, 187, 57);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+.message {
+    width: 100%;
+    background-color: #555;
+    color: white;
+    padding: 10px;
+    hyphens: auto;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    height: 400px; 
+    overflow-y: auto; 
+    overflow-wrap: break-word;
+}
+
+.system-message {
+    border: 2px solid #444;
+    margin-bottom: 20px;
+    border-radius: 15px;
+    p{
+        margin-left: 8px;
+    }
+}
+
+.user-message {
+    border: 2px solid #444;
+    margin-bottom: 20px;
+    border-radius: 15px;
+    p{
+        margin-left: 8px;
+    }
+    }
+
+input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #000000;
+    background-color: #818181;
+    color: rgb(235, 235, 235);
+    margin: auto;
+    display: block; 
+    border-radius: 10px;
+    font-size: medium;
+    outline: none;
+}
+
+input::placeholder {
+    color: rgb(235, 235, 235);
+    font-size: medium;
+    font-weight: bold;
+}
+
+input:focus {
+    border: 1px solid #ffffff;
+}
+
+input:hover {
+    cursor: context-menu;
+}
+
+
+span {
+    color: #00FF00;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+button {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #d1d1d1;
+    color: #333;
+    margin: 0px 5px 0px 5px;
+    border-radius: 10px;
+    font-size: medium;
+    cursor: pointer;
+    border: 1px solid #d1d1d1;
+    transition: background-color 0.4s, color 0.3s;
+    
+}
+
+button:hover {
+    background-color: #555;
+    color: rgb(235, 235, 235);
+    border: 1px solid #ffffff;
+    
+    
+}
+
+.button-container {
+    text-align: center;
+
+}
+
+footer{
+    text-align: right;
+    color: rgb(121, 121, 121);
+    margin-top: 20px;
+    font-size: small;
+}
