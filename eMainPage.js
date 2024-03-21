@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+  var ChatHistory = [];
   const inputElement = document.getElementById("message");
   const messageContainer = document.getElementById("message-container");
   const resetButton = document.getElementById("reset-conversation");
@@ -27,24 +28,20 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  var lastUserInput = "";
+  var KeyWordHistory = [];
   var keyIndex = 0;
+  var actualTriggerWord = "";
 
   function elizaProcessing(userInput) {
-    const words = userInput.replace(/[,.!?]/g, "").split(" ");
+    keyIndex = 0;
+    //const words = userInput.replace(/[,.]/g, "").split(" ");
+    //const words = userInput.replace(/[,.!?]/g, "").split(" ");
+    const words = userInput.match(/[\węóąśłżźćń]+|[!?]+/g);
     let priority = -1;
-    //let keyIndex = 0;
     let triggerWord = "";
     for (let i = 0; i < words.length; i++) {
       const word = words[i].toLowerCase();
-      //0 | [["przepraszam", "sory", "sorki", "wybacz"],
-      //1 | 0,
-      //2 |  [
-      //  |    [
-      //  |     "*",
-      //  |     ElizaSorryResponse
-      //  |    ]
-      //  |  ],
-      //  |],
 
       for (let keywordRecord in elizaKeywords) {
         for (let keyword in elizaKeywords[keywordRecord][0]) {
@@ -53,44 +50,49 @@ document.addEventListener("DOMContentLoaded", function () {
               priority = elizaKeywords[keywordRecord][1];
               keyIndex = keywordRecord;
               triggerWord = elizaKeywords[keywordRecord][0][keyword];
+              console.log("Trigger word: " + triggerWord);
             }
           }
         }
       }
     }
 
-    let x = elizaKeywords[keyIndex][2].length;
+    for (let i in elizaKeywords[keyIndex][2]) {
+      const str = elizaKeywords[keyIndex][2][i][0];
+      const words = str.split("*");
 
-    if (x == 1) {
-      //Change reflections in response message
-      appendElizaMessage(randomResponse(0));
-    } else {
-      for (let i in elizaKeywords[keyIndex][2]) {
-        const str = elizaKeywords[keyIndex][2][i][0];
-        const words = str.split("*");
+      if (
+        KeyWordHistory.length >= 3 &&
+        KeyWordHistory[-1] === KeyWordHistory[-2] &&
+        KeyWordHistory[-2] == KeyWordHistory[-3]
+      ) {
+        let randomizer = Math.floor(Math.random() * ElizaQuestions.length);
+        appendElizaMessage(ElizaQuestions[randomizer]);
+        break;
+      }
 
-        if (words[0] == ".") {
-          appendElizaMessage(randomResponse(i));
-          break;
-        }
+      if (words[0] == ".") {
+        appendElizaMessage(Response(i));
+        break;
+      }
 
-        const index = userInput.toLowerCase().indexOf(words[0]);
+      const index = userInput
+        .replace(/[,.]/g, "")
+        .toLowerCase()
+        .indexOf(words[0]);
 
-        if (index == -1) {
-          continue;
-        }
+      if (index == -1) {
+        continue;
+      }
 
-        if (words[1] == ">") {
-          var slicedText = userInput.slice(index + words[0].length + 1);
-          appendElizaMessage(randomResponse(i) + " " + slicedText);
-        } else if (words[1] == "<") {
-          var slicedText = userInput.slice(0, index);
-          appendElizaMessage(slicedText + " " + randomResponse(i));
-        }
-
+      if (words[1] == ">") {
+        var slicedText = userInput.slice(index + words[0].length);
+        appendElizaMessage(Response(i, 1, slicedText));
         break;
       }
     }
+    lastUserInput = userInput;
+    KeyWordHistory.push(triggerWord);
   }
 
   function pronounReflection(input) {
@@ -102,6 +104,33 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
     return words.join(" ");
+  }
+
+  function transformWords(inputString) {
+    let words = inputString.split(" ");
+    let transformedWords = [];
+
+    for (let word of words) {
+      let transformedWord = word;
+      for (let ending in wordEndings) {
+        if (word.endsWith(ending)) {
+          transformedWord = word.slice(0, -ending.length) + wordEndings[ending];
+          break;
+        }
+      }
+      transformedWords.push(transformedWord);
+    }
+
+    return transformedWords.join(" ");
+  }
+
+  function Response(i, mode = 0, userInput = "") {
+    var x = randomResponse(i);
+    if (mode == 1) {
+      x += " " + pronounReflection(transformWords(userInput));
+    }
+
+    return x;
   }
 
   function randomResponse(i) {
@@ -130,16 +159,17 @@ document.addEventListener("DOMContentLoaded", function () {
             <p><span>Ty: </span>${message}</p>
         `;
     messageContainer.appendChild(userMessageDiv);
+    ChatHistory.push("User: " + message + "\n");
   }
 
   function appendElizaMessage(message) {
-    message = pronounReflection(message);
     const elizaMessageDiv = document.createElement("div");
     elizaMessageDiv.className = "system-message fade-in";
     elizaMessageDiv.innerHTML = `
             <p><span>Eliza: </span>${message}</p>
         `;
     messageContainer.appendChild(elizaMessageDiv);
+    ChatHistory.push("Eliza: " + message + "\n");
   }
 
   function scrollToBottom() {
@@ -147,13 +177,34 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function resetMessages() {
+    lastUserInput = "";
+    KeyWordHistory = [];
     messageContainer.innerHTML = "";
-    appendElizaMessage(
+    let message =
       ElizaHelloResponse[
         Math.floor(Math.random() * ElizaHelloResponse.length)
       ] +
-        ", " +
-        elizaStart[Math.floor(Math.random() * elizaStart.length)]
-    );
+      ", " +
+      elizaStart[Math.floor(Math.random() * elizaStart.length)];
+    appendElizaMessage(message);
+    ChatHistory = ["Eliza: " + message + "\n"];
   }
+
+  function downloadChatHistory() {
+    var chatContent = ChatHistory.join("\n");
+    var blob = new Blob([chatContent], { type: "text/plain" });
+    var downloadLink = document.createElement("a");
+    downloadLink.download = "chat_history.txt";
+    downloadLink.href = window.URL.createObjectURL(blob);
+    downloadLink.style.display = "none";
+
+    document.body.appendChild(downloadLink);
+
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+  }
+
+  var downloadButton = document.getElementById("print-conversation");
+
+  downloadButton.addEventListener("click", downloadChatHistory);
 });
