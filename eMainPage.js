@@ -1,10 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {
   var ChatHistory = [];
+  var interactions = 1;
   const inputElement = document.getElementById("message");
   const messageContainer = document.getElementById("message-container");
   const resetButton = document.getElementById("reset-conversation");
   resetButton.addEventListener("click", resetMessages);
   var isInputDisabled = false;
+  var downloadButton = document.getElementById("print-conversation");
+  downloadButton.addEventListener("click", downloadChatHistory);
   resetMessages();
 
   inputElement.addEventListener("keypress", function (event) {
@@ -28,10 +31,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  var lastUserInput = "";
   var KeyWordHistory = [];
   var keyIndex = 0;
-  var actualTriggerWord = "";
 
   function elizaProcessing(userInput) {
     keyIndex = 0;
@@ -50,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
               priority = elizaKeywords[keywordRecord][1];
               keyIndex = keywordRecord;
               triggerWord = elizaKeywords[keywordRecord][0][keyword];
-              console.log("Trigger word: " + triggerWord);
+              console.log(interactions + ". Trigger word: " + triggerWord);
             }
           }
         }
@@ -60,11 +61,11 @@ document.addEventListener("DOMContentLoaded", function () {
     for (let i in elizaKeywords[keyIndex][2]) {
       const str = elizaKeywords[keyIndex][2][i][0];
       const words = str.split("*");
-
+      const ListLen = KeyWordHistory.length;
       if (
-        KeyWordHistory.length >= 3 &&
-        KeyWordHistory[-1] === KeyWordHistory[-2] &&
-        KeyWordHistory[-2] == KeyWordHistory[-3]
+        ListLen >= 2 &&
+        KeyWordHistory[ListLen - 1] == KeyWordHistory[ListLen - 2] &&
+        KeyWordHistory[ListLen - 2] == triggerWord
       ) {
         let randomizer = Math.floor(Math.random() * ElizaQuestions.length);
         appendElizaMessage(ElizaQuestions[randomizer]);
@@ -85,13 +86,20 @@ document.addEventListener("DOMContentLoaded", function () {
         continue;
       }
 
-      if (words[1] == ">") {
-        var slicedText = userInput.slice(index + words[0].length);
-        appendElizaMessage(Response(i, 1, slicedText));
+      if (words[1] === ">") {
+        const index = userInput.toLowerCase().indexOf(words[0]);
+        const startIndex = index + words[0].length;
+        const endIndex = userInput.slice(startIndex).search(/[.!?]/);
+        const slicedText =
+          endIndex === -1
+            ? userInput.slice(startIndex)
+            : userInput.slice(startIndex, startIndex + endIndex);
+        appendElizaMessage(Response(i, 1, slicedText.trim() + "?"));
         break;
       }
     }
     lastUserInput = userInput;
+    interactions++;
     KeyWordHistory.push(triggerWord);
   }
 
@@ -129,7 +137,6 @@ document.addEventListener("DOMContentLoaded", function () {
     if (mode == 1) {
       x += " " + pronounReflection(transformWords(userInput));
     }
-
     return x;
   }
 
@@ -203,8 +210,4 @@ document.addEventListener("DOMContentLoaded", function () {
     downloadLink.click();
     document.body.removeChild(downloadLink);
   }
-
-  var downloadButton = document.getElementById("print-conversation");
-
-  downloadButton.addEventListener("click", downloadChatHistory);
 });

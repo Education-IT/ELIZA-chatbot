@@ -212,8 +212,6 @@ var negativeWords = [
   "wstyd",
 ];
 
-var ElizaRepeatResponse = ["Nie powtarzaj się kurde"];
-
 var ElizaFafimlyResponse = [
   "Co uważasz na temat swojej rodziny?",
   "Czy kochasz swoich rodziców?",
@@ -221,6 +219,8 @@ var ElizaFafimlyResponse = [
   "Czy masz jakieś rodzeństwo?",
   "Jak się czujesz gdy ten temat przychodzi Ci na myśl?",
   "Czy jest coś co intencjonalnie ukrywasz przed swoją rodziną?",
+  "Czy jest coś co chciałbyś zmienić w swojej rodzinie?",
+  "Czy czujesz się związany z rodziną?",
 ];
 
 var ElizaAlwaysResponse = [
@@ -231,6 +231,7 @@ var ElizaAlwaysResponse = [
   "Pomyśl, czy to na pewno prawda?",
   "Takie określenia prowadzą do błędnych wniosków",
   "Czy nie uważasz, że to zbyt daleko idące uogólnienie?",
+  "Czy to na pewno tak jest?",
 ];
 
 var ElizaIfResponse = [
@@ -239,6 +240,9 @@ var ElizaIfResponse = [
   "Co by się stało jeśli",
   "Ale jakie są szanse, że",
   "Co Ty byś zrobił jeśli",
+  "Czy to jest możliwe, że",
+  "Co byś zrobił gdyby",
+  "Czy to jest możliwe, że",
 ];
 
 var ElizaMaybeResponse = [
@@ -288,6 +292,9 @@ var ElizaForgetResponse = [
   "Jakie mogą być konsekwencje tego, że zapomniałeś",
   "Czy coś by się zmieniło jakbys jednak pamiętał",
   "Jakie mogą być przyczyny tego że zapomniałeś",
+  "Co by się musiało stać, żeby zapamiętał",
+  "Jakie masz odczucia, że zapomniałeś",
+  "Czy warto abyś następnym razem zapamiętał",
 ];
 
 var ElizaRemeberResponse = [
@@ -296,6 +303,7 @@ var ElizaRemeberResponse = [
   "Jakie mogą być konsekwencje tego, że zapamiętałeś",
   "Czy coś by się zmieniło jakbys jednak zapomniał",
   "Czy cieszysz się z tego że zapamiętałeś",
+  "Co możesz zyskać z tego, że zapamiętałeś",
 ];
 
 var ElizaLikeResponse = [
@@ -380,6 +388,8 @@ var ElizaYouAreResponse = [
   "Co byś czuł gdyby okazało się to prawdą, że jestem",
   "A Ty jesteś",
   "Dlaczego myślisz, że jestem",
+  "Czy jesteś pewien, że jestem",
+  "A co jeśli jednak nie jestem",
 ];
 
 var ElizaNoResponse = [
@@ -388,7 +398,7 @@ var ElizaNoResponse = [
   "Co się stało, że nie",
   "Czy to dobrze, że nie",
   "Dlaczego Ty, nie",
-  "Jak myślisz, dlaczego Ty nie",
+  "Nie",
 ];
 
 var ElizaNotKnowResponse = [
@@ -477,7 +487,7 @@ var ElizaNotWantDreamResponse = [
   "Jak myślisz, dlaczego nie pragniesz",
   "Jaki jest powód, że nie potrzebujesz",
   "Pomyśl, jaki jest głębszy powód, braku potrzeby",
-  "Myślę, że znajdą się osoby, które będą chciały",
+  "Myślisz, że znajdą się osoby, które będą chciały",
 ];
 
 var ElizaWantDreamResponse = [
@@ -487,7 +497,7 @@ var ElizaWantDreamResponse = [
   "Jak myślisz, dlaczego pragniesz",
   "Jaki jest powód, że marzysz",
   "Pomyśl, jaki jest głębszy powód, że pragniesz",
-  "Myślę, że znajdą się osoby, które nie myslały o tym, żeby chciały",
+  "Myślisz, że znajdą się osoby, które nie myslały o tym, żeby chciały",
 ];
 
 var ElizaNotFeelResponse = [
