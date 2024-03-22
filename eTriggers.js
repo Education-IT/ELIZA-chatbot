@@ -181,7 +181,7 @@ let elizaKeywords = [
         [
           "Jesteś pewien?",
           "A co jeśli jednak tak?",
-          "Jakbysz się czuł, gdyby okazało się inaczej?",
+          "Jakbyś się czuł, gdyby okazało się inaczej?",
           "Czemu zaprzeczasz?",
         ],
       ],
