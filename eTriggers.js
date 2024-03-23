@@ -99,7 +99,7 @@ let elizaKeywords = [
   ],
 
   [
-    ["mam", "posiadam"],
+    ["mam", "posiadam", "dysponuję"],
     2,
     [
       ["nie mam *>", ElizaNotHaveResponse],
@@ -166,13 +166,13 @@ let elizaKeywords = [
   ],
 
   [
-    ["tak", "no", "oczywiście", "jasne", "pewnie"],
+    ["tak", "no", "oczywiście", "jasne", "pewnie", "owszem", "ano"],
     1,
     [[".", ElizaYesResponse]],
   ],
 
   [
-    ["nie"],
+    ["nie", "bynajmniej"],
     1,
     [
       ["nie *>", ElizaNoResponse],
@@ -202,15 +202,25 @@ let elizaKeywords = [
       "ciebie",
       "cie",
       "cię",
+      "ci",
+      "myślisz",
+      "uważasz",
+      "sądzisz",
+      "twierdzisz",
+      "wierzysz",
     ],
     2,
     [[".", ElizaDoNotTalkAboutMeResponse]],
   ],
 
-  [["ponieważ", "bo", "dlatego", "gdyż"], 3, [[".", ElizaBecouseResponse]]],
+  [
+    ["ponieważ", "bo", "dlatego", "gdyż", "albowiem"],
+    3,
+    [[".", ElizaBecouseResponse]],
+  ],
 
   [
-    ["myślę", "uważam", "sądzę", "twierdzę", "wierzę"],
+    ["myślę", "uważam", "sądzę", "twierdzę", "wierzę", "mnniemam"],
     4,
     [[".", ElizaThinkResponse]],
   ],
@@ -257,7 +267,17 @@ let elizaKeywords = [
   ],
 
   [
-    ["zawsze", "nigdy", "nikt", "każdy", "wszyscy"],
+    [
+      "stale",
+      "zawsze",
+      "nigdy",
+      "nikt",
+      "każdy",
+      "wszyscy",
+      "ciągle",
+      "nieustannie",
+      "wciąż",
+    ],
     4,
     [[".", ElizaAlwaysResponse]],
   ],
@@ -281,12 +301,24 @@ let elizaKeywords = [
   ],
 
   [
-    ["lubię", "podoba", "kocham", "uwielbiam", "cieszy"],
+    ["lubię", "podoba", "kocham", "uwielbiam", "cieszy", "cenię", "gustuję"],
     5,
     [[".", ElizaLikeResponse]],
   ],
 
-  [["może"], 2, [[".", ElizaMaybeResponse]]],
+  [
+    [
+      "może",
+      "prawdopodobnie",
+      "przypuszczalnie",
+      "podobno",
+      "zapewne",
+      "chyba",
+      "niewykluczone",
+    ],
+    2,
+    [[".", ElizaMaybeResponse]],
+  ],
 
   [
     ["jeśli"],
