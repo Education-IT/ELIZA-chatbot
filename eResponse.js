@@ -512,7 +512,7 @@ var ElizaNotFeelResponse = [
 var ElizaFeelResponse = [
   "Dlaczego czujesz",
   "Czemu czujesz",
-  "Jak to możliwe, że nie czujesz",
+  "Jak to możliwe, że czujesz",
   "Jak myślisz, dlaczego czujesz",
   "Jaki jest powód, że czujesz",
   "Pomyśl, jaki jest głębszy powód, że czujesz",
